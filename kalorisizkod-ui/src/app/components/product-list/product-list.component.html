@@ -5,8 +5,12 @@
             <div *ngFor="let tempProduct of products" class="col-md-3">
 
                 <div class="product-box">
+                    <a routerLink="/products/{{ tempProduct.id }}">
                     <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
+                    </a>
+                    <a routerLink="/products/{{ tempProduct.id }}">
                     <h1> {{ tempProduct.name }}</h1>
+                    </a>
                     <div class="price">{{ tempProduct.unitPrice | currency:'TL' }}</div>
                     <a href="#" class="primary-btn">Sepete Ekle</a>
                 </div>
@@ -16,6 +20,43 @@
                 Ürün bulunamamıştır.
             </div>
 
+            </div>
+
+
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <div class="row">
+
+
+                                <div class="col-md-9" style="padding-left: 30%">
+
+                                    <ngb-pagination [(page)]="thePageNumber"
+                                    [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements"
+                                    [maxSize]="5"
+                                    (pageChange)="listProducts()">
+                                </ngb-pagination>
+                            </div>
+
+
+                            <div class="col-md-3 mt-2" style="text-align: right;">
+                                <span class="mr-2">Sayfa Boyutu</span>
+
+                                <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+
+                                    <option>2</option>
+                                    <option selected="true">5</option>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>50</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

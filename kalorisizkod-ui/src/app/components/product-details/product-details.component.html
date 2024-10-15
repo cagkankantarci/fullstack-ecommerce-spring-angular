@@ -1,0 +1,20 @@
+<div class="detail-section">
+    <div class="container-fluid">
+
+        <img src="{{ product.imageUrl }}" class="detail-img">
+
+        <h3>{{ product.name }}</h3>
+
+        <div class="price">{{ product.unitPrice | currency:'TL' }}</div>
+
+        <a href="#" class="primary-btn">Sepete Ekle</a>
+
+        <hr>
+
+        <h4>Açıklama</h4>
+        <p>{{ product.description }}</p>
+
+        <a routerLink="/products" class="mt-5">Ürün Listesine Geri Dön</a>
+
+    </div>
+</div>
