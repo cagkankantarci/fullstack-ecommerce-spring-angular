@@ -4,6 +4,8 @@ import { Product } from '../../common/product';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartItem } from '../../common/cart-item';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +26,9 @@ export class ProductListComponent {
   theTotalElements: number = 0;
   previousKeyword: string = "";
 
-  constructor(private productService: ProductService, private route: ActivatedRoute){
+  constructor(private productService: ProductService, 
+            private cartService: CartService,
+    private route: ActivatedRoute){
 
   }
 
@@ -97,5 +101,12 @@ export class ProductListComponent {
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
     };
+  }
+
+  addToCart(theProduct: Product){
+
+    const theCartItem = new CartItem(theProduct);
+
+    this.cartService.addToCart(theCartItem);
   }
 }

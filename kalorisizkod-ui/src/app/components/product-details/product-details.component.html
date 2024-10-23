@@ -7,7 +7,7 @@
 
         <div class="price">{{ product.unitPrice | currency:'TL' }}</div>
 
-        <a href="#" class="primary-btn">Sepete Ekle</a>
+        <button (click)="addToCart()" class="btn btn-primary btn-sm">Sepete Ekle</button>
 
         <hr>
 
