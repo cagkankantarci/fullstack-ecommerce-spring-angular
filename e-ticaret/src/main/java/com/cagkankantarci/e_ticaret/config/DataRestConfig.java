@@ -1,12 +1,10 @@
 package com.cagkankantarci.e_ticaret.config;
 
-import com.cagkankantarci.e_ticaret.entity.Country;
-import com.cagkankantarci.e_ticaret.entity.Product;
-import com.cagkankantarci.e_ticaret.entity.ProductCategory;
-import com.cagkankantarci.e_ticaret.entity.State;
+import com.cagkankantarci.e_ticaret.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -22,6 +20,9 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 
     private EntityManager entityManager;
 
+    @Value("${allowed.origins}")
+    private String[] theAllowedOrigings;
+
     @Autowired
     public DataRestConfig(EntityManager theEntityManager) {
         entityManager = theEntityManager;
@@ -31,15 +32,18 @@ public class DataRestConfig implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 
-        HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
+        HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
 
         disableHttpMethods(Product.class, config, theUnsupportedActions);
         disableHttpMethods(ProductCategory.class, config, theUnsupportedActions);
         disableHttpMethods(Country.class, config, theUnsupportedActions);
         disableHttpMethods(State.class, config, theUnsupportedActions);
+        disableHttpMethods(Order.class, config, theUnsupportedActions);
 
 
         exposeIds(config);
+
+        cors.addMapping(config.getBasePath()+"/**").allowedOrigins(theAllowedOrigings);
 
     }
 

@@ -1,0 +1,15 @@
+<div class="login-status-header">
+
+    <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
+        Hoşgeldin {{ userFullName }}!
+    </div>
+
+    <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">Giriş</button>
+
+    <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn">Çıkış</button>
+
+    <button *ngIf="isAuthenticated" routerLink="/members" class="security-btn ms-1">Hesabım</button>
+
+    <button *ngIf="isAuthenticated" routerLink="/order-history" class="security-btn ms-1">Siparişlerim</button>
+
+</div>

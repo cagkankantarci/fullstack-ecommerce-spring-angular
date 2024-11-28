@@ -1,0 +1,38 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <h3>Siparişleriniz</h3>
+
+            <div *ngIf="orderHistoryList.length > 0">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="20%">Sipariş Takip Numarası</th>
+                        <th width="10%">Toplam Fiyat</th>
+                        <th width="10%">Toplam Adet</th>
+                        <th width="10%">Tarih</th>
+                    </tr>
+
+                    <tr *ngFor="let tempOrderHistory of orderHistoryList">
+                        <td>
+                            {{ tempOrderHistory.orderTrackingNumber }}
+                        </td>
+                        <td>
+                            {{ tempOrderHistory.totalPrice | currency: 'TL' }}
+                        </td>
+                        <td>
+                            {{ tempOrderHistory.totalQuantity }}
+                        </td>
+                        <td>
+                            {{ tempOrderHistory.dateCreated | date: 'medium' }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div *ngIf="orderHistoryList.length == 0" class="alert alert-warning col-md-12" role="alert">
+                Sipariş bulunamadı.
+            </div>
+
+        </div>
+    </div>
+</div>

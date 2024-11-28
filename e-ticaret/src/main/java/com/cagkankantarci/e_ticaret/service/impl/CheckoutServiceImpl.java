@@ -10,6 +10,7 @@ import com.cagkankantarci.e_ticaret.service.CheckoutService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,6 +39,14 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setShippingAddress(purchase.getShippingAddress());
 
         Customer customer = purchase.getCustomer();
+        String email = customer.getEmail();
+
+        Customer customerFromDB = customerRepository.findByEmail(email);
+
+        if(Objects.nonNull(customerFromDB)){
+            customer = customerFromDB;
+        }
+
         customer.add(order);
 
         customerRepository.save(customer);
